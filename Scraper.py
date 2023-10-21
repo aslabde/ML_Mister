@@ -131,7 +131,7 @@ response = requests.post('https://mister.mundodeportivo.com/ajax/sw', cookies=co
 jsonDict = response.json()
 playersList.extend(jsonDict['data']['players'])
 
-#TODO EXTRACT IDs to a list, call the url appending the id for each id, scrap the data and append it to the main players dictionary
+#EXTRACT IDs to a list, call the url appending the id for each id, scrap the data and append it to the main players dictionary
 playerIDsList = []
 for player in playersList:
     playerIDsList.append(player['id'])
@@ -204,40 +204,44 @@ data = {
 }
 
 #call the url appending the id for each id  
-playersDataRawList = []
-data['id'] = '1'
-response = requests.post('https://mister.mundodeportivo.com/ajax/sw', cookies=cookies, headers=headers, data=data)    
-jsonResponse = response.json()
-playersDataRawList=jsonResponse['data']['player']
 timestr = time.strftime("%Y%m%d-%H%M%S")
 Players_Raw_Output_Date = "Players_Raw_Output_Date"+timestr
 file = open(Players_Raw_Output_Date,'w')
 file.close()
 
-#playersIDsTestList = ['444', '1', '53113']
+playersIDsTestList = ['444', '1', '53113']
 
 file = open(Players_Raw_Output_Date,'a')
-for id in playerIDsList:
+#for id in playersIDsTestList:
+playersDataRawList = {}
+for id in playersIDsTestList:
     data['id'] = id
     response = requests.post('https://mister.mundodeportivo.com/ajax/sw', cookies=cookies, headers=headers, data=data)    
     jsonResponse = response.json()
-    playersDataRawList.update(jsonResponse['data']['player'])
-    playersDataRawList.update(jsonResponse['data']['away'])
-    playersDataRawList.update(jsonResponse['data']['home'])
-    playersDataRawList.update(jsonResponse['data']['next_match'])
-    playersDataRawList.update(jsonResponse['data']['player_extra'])
+    #playersDataRawList.update(jsonResponse['data']['player'])
+    #playersDataRawList.update(jsonResponse['data']['away'])
+    #playersDataRawList.update(jsonResponse['data']['home'])
+    #playersDataRawList.update(jsonResponse['data']['next_match'])
+    #playersDataRawList.update(jsonResponse['data']['player_extra'])
     #TODO additional logic can be applied here to create the events required data
+    playersDataRawList[id+"_Player"] = jsonResponse['data']['player']
+    playersDataRawList[id+"_Away"] = jsonResponse['data']['away']
+    playersDataRawList[id+"_Home"] = jsonResponse['data']['home']
+    playersDataRawList[id+"_Next_match"] = jsonResponse['data']['next_match'] 
+    playersDataRawList[id+"_Player_extra"] = jsonResponse['data']['player_extra']
+
     pointsList=jsonResponse['data']['points']
-    
     match=len(pointsList)
     matchID=1
     while match > 0:
-        playersDataRawList[str(id)+"_"+str(matchID)]=pointsList[match -1]
+        playersDataRawList[str(id)+"_J"+str(matchID)]=pointsList[match -1]
         match -= 1
         matchID += 1
    
     #write output to a file Players_Raw_Output_Date
     file.write("\n")
     file.write(json.dumps(playersDataRawList))
+    playersDataRawList.clear()
+
 file.close()
 
