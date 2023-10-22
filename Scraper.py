@@ -221,11 +221,11 @@ for id in playersIDsTestList:
     response = requests.post('https://mister.mundodeportivo.com/ajax/sw', cookies=cookies, headers=headers, data=data)    
     jsonResponse = response.json()
 
-    playerDict[id+"_Player"] = jsonResponse['data']['player']
-    playerDict[id+"_Away"] = jsonResponse['data']['away']
-    playerDict[id+"_Home"] = jsonResponse['data']['home']
-    playerDict[id+"_Next_match"] = jsonResponse['data']['next_match'] 
-    playerDict[id+"_Player_extra"] = jsonResponse['data']['player_extra']
+    playerDict["Player"] = jsonResponse['data']['player']
+    playerDict["Away"] = jsonResponse['data']['away']
+    playerDict["Home"] = jsonResponse['data']['home']
+    playerDict["Next_match"] = jsonResponse['data']['next_match'] 
+    playerDict["_Player_extra"] = jsonResponse['data']['player_extra']
 
     pointsList=jsonResponse['data']['points']
     match=len(pointsList)
