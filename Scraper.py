@@ -225,7 +225,7 @@ for id in playersIDsTestList:
     playerDict["Away"] = jsonResponse['data']['away']
     playerDict["Home"] = jsonResponse['data']['home']
     playerDict["Next_match"] = jsonResponse['data']['next_match'] 
-    playerDict["_Player_extra"] = jsonResponse['data']['player_extra']
+    playerDict["Player_extra"] = jsonResponse['data']['player_extra']
 
     pointsList=jsonResponse['data']['points']
     match=len(pointsList)

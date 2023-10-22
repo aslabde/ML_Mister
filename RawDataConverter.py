@@ -6,19 +6,25 @@ file = open(fileToParse,'r')
 #Read first empty line
 file.readline()
 
-#TODO Iterate file thru keys in dict
+#Read dict
 readDict = {}
 readDict = json.loads(file.readline())
 
-print(list(readDict.keys()))
+#Get keys
+readDictKeysList = list(readDict.keys())
+playerKey = readDictKeysList[0]
 
-playerDict = {}
-#TODO Calculate dict key based on id_pattern playerDictKey = 
-#playerDict = readDict['444_Player']
-awayDict = {}
-homeDict = {}
-nextMatchDict = {}
-plyerExtraDict = {}
+#Transfer data to local Dicts
+playerDict = readDict['Player']
+awayDict = readDict['Away']
+homeDict = readDict['Home']
+nextMatchDict = readDict['Next_match']
+plyerExtraDict = readDict['Player_extra']
+#TODO Create basic data for events
+
+#TODO Iterate to get the Games data and create events
+it = 6
+while 
 
 #TODO ADD Jn data and points (variable len list of dictionaries)
 
