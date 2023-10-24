@@ -209,13 +209,12 @@ timestr = time.strftime("%Y%m%d-%H%M%S")
 Players_Raw_Output_Date = "Players_Raw_Output_Date"+timestr
 file = open(Players_Raw_Output_Date,'w')
 file.close()
-
-playersIDsTestList = ['444', '1', '53113']
-
 file = open(Players_Raw_Output_Date,'a')
+
+#playersIDsTestList = ['444', '1', '53113']
 #for id in playersIDsTestList:
 playersDataRawList = {}
-for id in playersIDsTestList:
+for id in playerIDsList:
     playerDict = {}
     data['id'] = id
     response = requests.post('https://mister.mundodeportivo.com/ajax/sw', cookies=cookies, headers=headers, data=data)    
