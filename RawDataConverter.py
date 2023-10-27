@@ -58,6 +58,11 @@ for line in file:
                 eventKey = playerKey+'_J'+str(it_J)
                 eventDict['player_id'] = playerKey
                 eventDict['team_id'] = playerDict['id_team']
+                #V1.2 Replacing postions by array
+                #['position'].replace(1, [1,0,0,0])  #GK
+                #['position'].replace(2, [0,1,0,0])  #DF        
+                #['position'].replace(3, [0,0,1,0])  #MF
+                #'position'].replace(4, [0,0,0,1])  #ST
                 eventDict['position'] = playerDict['position']
                 eventDict['player_value'] = playerDict['value']
                 eventDict['total_streak_points'] = totalStreakPoints
