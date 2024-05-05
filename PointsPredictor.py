@@ -2,27 +2,25 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import OneHotEncoder
 import time
 import json
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
 
-dataSetFile = "Dataset_v1_20231026-190343"
+dataSetFile = "Dataset_v1_20231030-182250"
 #file = open(dataSetFile,'r')
 initialData=pd.read_json(dataSetFile)
 data = initialData.T
 #data.info()
 #print(data.corr())
 
-#Labelin position as proximity array
 data['points'] = data['points'].replace(np.nan, 0) 
-#data['position'] = data['position'].replace(1, [1,0,0,0])  #GK
-#data['position'] = data['position'].replace(2, [0,1,0,0])  #DF
-#data['position'] = data['position'].replace(3, [0,0,1,0])  #MF
-#data['position'] = data['position'].replace(4, [0,0,0,1])  #ST
-#data = data.dropna()
-#data.reset_index()
+
+#Labeling position as proximity array with one-hot encoding approach
+enc = OneHotEncoder()
+enc.fit(data)
 
 #This msk var determines the split between train and test size.
 msk = np.random.rand(len(data)) < 0.8
@@ -48,7 +46,7 @@ for g in range(len(y_pred)):
         points_prob = round(y_pred[g],1)
         #player = X_test.reset_index().drop(columns = 'index').loc[g,'player_id']
         match = X_test.reset_index().loc[g,'index']
-        print(f'The {match} player has a probability of {points_prob} points for the mactch {match}.')
+        print(f'The {match} player has a probability of {points_prob} points for the match {match}.')
         testOutputDict[match]=points_prob
 
 '''
